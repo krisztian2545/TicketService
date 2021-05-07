@@ -1,2 +1,6 @@
-package com.epam.training.ticketservice.domain.account;public interface Account {
+package com.epam.training.ticketservice.domain.account;
+
+public interface Account {
+
+    String describe();
 }

@@ -1,10 +1,10 @@
-package com.epam.training.ticketservice.clientservice.cli;
+package com.epam.training.ticketservice.clientservice;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class Client {
-    
+
     private String sessionToken;
 
     public String getSessionToken() {
