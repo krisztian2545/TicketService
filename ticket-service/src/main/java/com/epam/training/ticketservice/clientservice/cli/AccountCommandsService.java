@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.clientservice.cli;
 
-public interface AdminCommandsService {
+public interface AccountCommandsService {
 
     String signIn(String username, String password);
 

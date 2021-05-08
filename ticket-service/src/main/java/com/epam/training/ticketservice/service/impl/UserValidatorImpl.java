@@ -1,6 +1,7 @@
 package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.domain.account.Account;
+import com.epam.training.ticketservice.exception.AccessDeniedException;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.UserValidator;
@@ -28,14 +29,17 @@ public class UserValidatorImpl implements UserValidator {
             throw new UnsuccessfulAuthenticationException();
         }
         currentUser.username = "admin";
+//        currentUser
 
         sessionToken = generateToken();
         return sessionToken;
     }
 
     @Override
-    public void authorizeAdmin(String token) {
-
+    public void authorizeAdmin(String token) throws AccessDeniedException {
+        if (!token.equals(sessionToken)) {
+            throw new AccessDeniedException();
+        }
     }
 
     public void checkIfUserAlreadyLoggedIn() throws AlreadyLoggedInException {

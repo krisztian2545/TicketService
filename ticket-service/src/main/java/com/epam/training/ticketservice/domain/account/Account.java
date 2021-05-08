@@ -4,4 +4,6 @@ public abstract class Account {
 
     public String username;
 
+    public Privilege privilege;
+
 }
