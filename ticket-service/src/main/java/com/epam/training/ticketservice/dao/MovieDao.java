@@ -1,0 +1,16 @@
+package com.epam.training.ticketservice.dao;
+
+import com.epam.training.ticketservice.domain.theatre.Movie;
+
+import java.util.Collection;
+
+public interface MovieDao {
+
+    void createMovie(Movie movie);
+
+    Collection<Movie> readAll();
+
+    void update(Movie movie);
+
+    void deleteMovie(Movie movie);
+}
