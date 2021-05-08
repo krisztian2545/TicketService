@@ -1,6 +1,8 @@
 package com.epam.training.ticketservice.domain.account;
 
-public interface Account {
+public abstract class Account {
 
-    String describe();
+    public String username;
+
+//    public abstract String describe();
 }

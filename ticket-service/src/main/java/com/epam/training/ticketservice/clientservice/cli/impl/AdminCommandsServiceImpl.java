@@ -37,4 +37,9 @@ public class AdminCommandsServiceImpl implements AdminCommandsService {
         client.setSessionToken(null);
         return output;
     }
+
+    @Override
+    public String describeAccount() {
+        return accountService.describeAccount();
+    }
 }

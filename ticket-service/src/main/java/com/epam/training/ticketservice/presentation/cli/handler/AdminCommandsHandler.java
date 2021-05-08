@@ -25,5 +25,8 @@ public class AdminCommandsHandler {
         return adminCommandsService.signOut();
     }
 
-
+    @ShellMethod(value = "Describe account", key = "describe account")
+    public String describeAccount() {
+        return adminCommandsService.describeAccount();
+    }
 }

@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.service.impl;
 
+import com.epam.training.ticketservice.domain.account.Account;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.AccountService;
@@ -13,10 +14,14 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     private UserValidator userValidator;
+    private UserValidatorImpl specificUserValidatorImpl;
+    private Account currentUser;
 
     @Autowired
-    public AccountServiceImpl(UserValidator userValidator) {
+    public AccountServiceImpl(UserValidator userValidator, Account user) {
         this.userValidator = userValidator;
+        specificUserValidatorImpl = (UserValidatorImpl) userValidator;
+        currentUser = user;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
         try {
             token = userValidator.authenticateAdmin(username, password);
         } catch (AlreadyLoggedInException e) {
-            return ResponseFactory.unSuccessfulSignInResponse( describeAccount() );
+            return null;
         } catch (UnsuccessfulAuthenticationException e) {
             return ResponseFactory.unSuccessfulSignInResponse("Login failed due to incorrect credentials");
         }
@@ -34,19 +39,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String signInAsUser(String username, String password) {
+    public String signInAsUser(String username, String password) { // TODO
         return null;
     }
 
     @Override
     public String signOut() {
-        ((UserValidatorImpl) userValidator).clearSessionToken();
+        specificUserValidatorImpl.clearSessionToken();
         return null;
     }
 
     @Override
     public String describeAccount() {
-        return "account description...";
+        try {
+            specificUserValidatorImpl.checkIfUserAlreadyLoggedIn();
+        } catch (AlreadyLoggedInException e) {
+            return String.format("Signed in with privileged account '%s'", currentUser.username); // TODO
+        }
+        return "You are not signed in";
     }
 
 

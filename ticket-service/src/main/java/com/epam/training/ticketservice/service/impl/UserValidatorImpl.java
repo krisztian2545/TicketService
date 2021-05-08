@@ -1,18 +1,26 @@
 package com.epam.training.ticketservice.service.impl;
 
+import com.epam.training.ticketservice.domain.account.Account;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserValidatorImpl implements UserValidator {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserValidatorImpl.class);
+//    private final static Logger LOGGER = LoggerFactory.getLogger(UserValidatorImpl.class);
 
     private String sessionToken;
+    private Account currentUser;
+
+    @Autowired
+    public UserValidatorImpl(Account currentUser) {
+        this.currentUser = currentUser;
+    }
 
     @Override
     public String authenticateAdmin(String username, String password) throws UnsuccessfulAuthenticationException, AlreadyLoggedInException {
@@ -21,6 +29,7 @@ public class UserValidatorImpl implements UserValidator {
         if (!"admin".equals(username) || !"admin".equals(password)) {
             throw new UnsuccessfulAuthenticationException();
         }
+        currentUser.username = "admin";
 
         sessionToken = generateToken();
         return sessionToken;
@@ -31,7 +40,7 @@ public class UserValidatorImpl implements UserValidator {
 
     }
 
-    private void checkIfUserAlreadyLoggedIn() throws AlreadyLoggedInException {
+    public void checkIfUserAlreadyLoggedIn() throws AlreadyLoggedInException {
         if (sessionToken != null)
             throw new AlreadyLoggedInException();
     }

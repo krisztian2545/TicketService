@@ -6,4 +6,6 @@ public interface AdminCommandsService {
 
     String signOut();
 
+    String describeAccount();
+
 }

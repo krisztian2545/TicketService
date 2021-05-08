@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class TicketServicePromptProvider implements PromptProvider {
     @Override
     public AttributedString getPrompt() {
-        return new AttributedString("Ticket-service:> ");
+        return new AttributedString("Ticket service>");
     }
 }
