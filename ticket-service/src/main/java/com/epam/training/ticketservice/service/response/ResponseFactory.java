@@ -7,6 +7,6 @@ public class ResponseFactory {
     }
 
     public static SignInResponse unSuccessfulSignInResponse(String errorMessage) {
-        return new SignInResponse("", errorMessage, true);
+        return new SignInResponse("", errorMessage, false);
     }
 }

@@ -19,7 +19,7 @@ public class SignInResponse {
         return errorMessage;
     }
 
-    public Boolean getSuccessful() {
+    public Boolean isSuccessful() {
         return successful;
     }
 }

@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.service.impl;
 
+import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.AccountService;
 import com.epam.training.ticketservice.service.UserValidator;
@@ -23,8 +24,10 @@ public class AccountServiceImpl implements AccountService {
         String token;
         try {
             token = userValidator.authenticateAdmin(username, password);
+        } catch (AlreadyLoggedInException e) {
+            return ResponseFactory.unSuccessfulSignInResponse( describeAccount() );
         } catch (UnsuccessfulAuthenticationException e) {
-            return ResponseFactory.unSuccessfulSignInResponse("Wrong username or password!");
+            return ResponseFactory.unSuccessfulSignInResponse("Login failed due to incorrect credentials");
         }
 
         return ResponseFactory.successfulSignInResponse(token);
@@ -37,6 +40,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String signOut() {
+        ((UserValidatorImpl) userValidator).clearSessionToken();
         return null;
     }
+
+    @Override
+    public String describeAccount() {
+        return "account description...";
+    }
+
+
 }

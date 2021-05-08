@@ -9,4 +9,6 @@ public interface AccountService {
     String signInAsUser(String username, String password);
 
     String signOut();
+
+    String describeAccount();
 }

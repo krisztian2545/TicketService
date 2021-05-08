@@ -22,6 +22,8 @@ public class AdminCommandsHandler {
 
     @ShellMethod(value = "Sign out.", key = "sign out")
     public String signOutPrivileged() {
-        return "Signed out successfully.";
+        return adminCommandsService.signOut();
     }
+
+
 }
