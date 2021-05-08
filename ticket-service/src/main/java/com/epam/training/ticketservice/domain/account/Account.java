@@ -4,5 +4,4 @@ public abstract class Account {
 
     public String username;
 
-//    public abstract String describe();
 }

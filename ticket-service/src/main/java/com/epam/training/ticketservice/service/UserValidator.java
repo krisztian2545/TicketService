@@ -5,7 +5,8 @@ import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationExcep
 
 public interface UserValidator {
 
-    String authenticateAdmin(String username, String password) throws UnsuccessfulAuthenticationException, AlreadyLoggedInException;
+    String authenticateAdmin(String username, String password) throws UnsuccessfulAuthenticationException,
+            AlreadyLoggedInException;
 
     void authorizeAdmin(String token);
 }

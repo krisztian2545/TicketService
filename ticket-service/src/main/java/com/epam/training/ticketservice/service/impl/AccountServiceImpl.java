@@ -54,7 +54,8 @@ public class AccountServiceImpl implements AccountService {
         try {
             specificUserValidatorImpl.checkIfUserAlreadyLoggedIn();
         } catch (AlreadyLoggedInException e) {
-            return String.format("Signed in with privileged account '%s'", currentUser.username); // TODO
+            // TODO what if not privileged
+            return String.format("Signed in with privileged account '%s'", currentUser.username);
         }
         return "You are not signed in";
     }

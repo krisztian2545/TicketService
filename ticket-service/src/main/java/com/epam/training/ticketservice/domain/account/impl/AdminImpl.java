@@ -7,8 +7,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdminImpl extends Account implements Admin {
 
-//    public String describe() {
-//        return username;
-//    }
-
 }
