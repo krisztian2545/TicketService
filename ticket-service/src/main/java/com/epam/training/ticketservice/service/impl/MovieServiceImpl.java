@@ -48,6 +48,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public String deleteMovie(String title, String token) {
+        try {
+            userValidator.authorizeAdmin(token);
+        } catch (AccessDeniedException e) {
+            return "You are not privileged to use this command";
+        }
+
+        movieDao.deleteMovie(title);
         return null;
     }
 

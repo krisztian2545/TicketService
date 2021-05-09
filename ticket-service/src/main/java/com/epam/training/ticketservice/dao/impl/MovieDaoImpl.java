@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -56,7 +57,9 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public void deleteMovie(Movie movie) {
+    public void deleteMovie(String title) {
+        Optional<MovieEntity> movieEntity = movieRepository.findById(title);
 
+        movieEntity.ifPresent(entity -> movieRepository.delete(entity));
     }
 }

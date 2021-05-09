@@ -31,7 +31,7 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
     public String getAllMovies() {
         List<Movie> movies = movieService.getAllMovies();
 
-        if (movies == null) {
+        if (movies.isEmpty()) {
             return "There are no movies at the moment";
         }
 
@@ -51,6 +51,6 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
 
     @Override
     public String deleteMovie(String title) {
-        return null;
+        return movieService.deleteMovie(title, client.getSessionToken());
     }
 }

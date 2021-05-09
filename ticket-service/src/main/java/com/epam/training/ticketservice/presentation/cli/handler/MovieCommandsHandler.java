@@ -25,4 +25,9 @@ public class MovieCommandsHandler {
         return movieCommandsService.getAllMovies();
     }
 
+    @ShellMethod(value = "delete movie <film címe>", key = "delete movie")
+    public String deleteMovie(String title) {
+        return movieCommandsService.deleteMovie(title);
+    }
+
 }
