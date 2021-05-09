@@ -4,6 +4,7 @@ import com.epam.training.ticketservice.domain.account.Account;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.AccountService;
+import com.epam.training.ticketservice.service.CurrentUser;
 import com.epam.training.ticketservice.service.UserValidator;
 import com.epam.training.ticketservice.service.response.ResponseFactory;
 import com.epam.training.ticketservice.service.response.SignInResponse;
@@ -15,10 +16,10 @@ public class AccountServiceImpl implements AccountService {
 
     private UserValidator userValidator;
     private UserValidatorImpl specificUserValidatorImpl;
-    private Account currentUser;
+    private CurrentUser currentUser;
 
     @Autowired
-    public AccountServiceImpl(UserValidator userValidator, Account user) {
+    public AccountServiceImpl(UserValidator userValidator, CurrentUser user) {
         this.userValidator = userValidator;
         specificUserValidatorImpl = (UserValidatorImpl) userValidator;
         currentUser = user;
@@ -55,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
             specificUserValidatorImpl.checkIfUserAlreadyLoggedIn();
         } catch (AlreadyLoggedInException e) {
             // TODO what if not privileged
-            return String.format("Signed in with privileged account '%s'", currentUser.username);
+            return String.format("Signed in with privileged account '%s'", currentUser.getUsername());
         }
         return "You are not signed in";
     }

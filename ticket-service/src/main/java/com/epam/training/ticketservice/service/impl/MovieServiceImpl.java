@@ -31,7 +31,7 @@ public class MovieServiceImpl implements MovieService {
             return "You are not privileged to use this command";
         }
 
-
+        movieDao.createMovie(new Movie(title, genre, length));
 
         return null;
     }

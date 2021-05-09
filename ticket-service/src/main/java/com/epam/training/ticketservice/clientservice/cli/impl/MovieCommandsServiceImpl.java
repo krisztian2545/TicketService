@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieCommandsServiceImpl implements MovieCommandsService {
@@ -33,7 +34,14 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
         if (movies == null) {
             return "There are no movies at the moment";
         }
-        return movies.toString(); // TODO
+
+        StringBuilder output = new StringBuilder();
+        for (Movie m : movies) {
+            output.append(String.format("%s (%s, %d minutes)\n",
+                    m.getTitle(), m.getGenre(), m.getLength()));
+        }
+
+        return output.toString(); // TODO
     }
 
     @Override

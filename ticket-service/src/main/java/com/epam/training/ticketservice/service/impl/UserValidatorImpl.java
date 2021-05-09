@@ -1,9 +1,11 @@
 package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.domain.account.Account;
+import com.epam.training.ticketservice.domain.account.Privilege;
 import com.epam.training.ticketservice.exception.AccessDeniedException;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
+import com.epam.training.ticketservice.service.CurrentUser;
 import com.epam.training.ticketservice.service.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class UserValidatorImpl implements UserValidator {
 
     private String sessionToken;
-    private Account currentUser;
+    private CurrentUser currentUser;
 
     @Autowired
-    public UserValidatorImpl(Account currentUser) {
+    public UserValidatorImpl(CurrentUser currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -28,8 +30,8 @@ public class UserValidatorImpl implements UserValidator {
         if (!"admin".equals(username) || !"admin".equals(password)) {
             throw new UnsuccessfulAuthenticationException();
         }
-        currentUser.username = "admin";
-//        currentUser
+
+        currentUser.setCurrentUser(username, Privilege.Admin);
 
         sessionToken = generateToken();
         return sessionToken;
@@ -37,7 +39,10 @@ public class UserValidatorImpl implements UserValidator {
 
     @Override
     public void authorizeAdmin(String token) throws AccessDeniedException {
-        if (!token.equals(sessionToken)) {
+        if (token == null) {
+            throw new AccessDeniedException();
+        }
+        if (!token.equals(sessionToken) || currentUser.getPrivilege() != Privilege.Admin) {
             throw new AccessDeniedException();
         }
     }
