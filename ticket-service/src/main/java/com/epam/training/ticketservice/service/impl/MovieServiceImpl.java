@@ -64,6 +64,8 @@ public class MovieServiceImpl implements MovieService {
             return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
+        //TODO prevent deleting if there is a screening with this film
+
         movieDao.deleteMovie(title);
         return ResponseFactory.successResponse();
     }

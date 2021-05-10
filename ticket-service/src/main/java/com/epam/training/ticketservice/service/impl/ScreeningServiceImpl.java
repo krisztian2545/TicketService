@@ -76,7 +76,7 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public BasicCommandResponse deleteRoom(String movieTitle, String roomName, Date startDateAndTime, String token) {
+    public BasicCommandResponse deleteScreening(String movieTitle, String roomName, Date startDateAndTime, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {

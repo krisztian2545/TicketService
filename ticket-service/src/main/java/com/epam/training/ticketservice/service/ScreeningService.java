@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ScreeningService {
 
-    BasicCommandResponse createScreening(String filmTitle, String roomName, Date startDateAndTime, String token);
+    BasicCommandResponse createScreening(String movieTitle, String roomName, Date startDateAndTime, String token);
 
     List<Screening> getAllScreenings();
 
-    BasicCommandResponse updateScreening(String filmTitle, String roomName, Date startDateAndTime, String token);
+    BasicCommandResponse updateScreening(String movieTitle, String roomName, Date startDateAndTime, String token);
 
-    BasicCommandResponse deleteRoom(String filmTitle, String roomName, Date startDateAndTime, String token);
+    BasicCommandResponse deleteScreening(String movieTitle, String roomName, Date startDateAndTime, String token);
 }

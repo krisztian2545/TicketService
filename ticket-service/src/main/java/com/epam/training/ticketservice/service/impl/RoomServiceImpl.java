@@ -63,6 +63,8 @@ public class RoomServiceImpl implements RoomService {
             return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
+        //TODO prevent deleting if there is a screening in this room
+
         roomDao.deleteRoom(name);
 
         return ResponseFactory.successResponse();
