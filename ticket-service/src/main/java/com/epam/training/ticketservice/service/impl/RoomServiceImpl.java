@@ -1,11 +1,11 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.dao.MovieDao;
-import com.epam.training.ticketservice.domain.theatre.Movie;
+import com.epam.training.ticketservice.dao.RoomDao;
+import com.epam.training.ticketservice.domain.theatre.Room;
 import com.epam.training.ticketservice.exception.AccessDeniedException;
-import com.epam.training.ticketservice.service.MovieService;
+import com.epam.training.ticketservice.service.RoomService;
 import com.epam.training.ticketservice.service.UserValidator;
-import com.epam.training.ticketservice.service.response.BasicResponse;
+import com.epam.training.ticketservice.service.response.BasicCommandResponse;
 import com.epam.training.ticketservice.service.response.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,60 +13,58 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MovieServiceImpl implements MovieService {
+public class RoomServiceImpl implements RoomService {
 
-    private MovieDao movieDao;
     private UserValidator userValidator;
+    private RoomDao roomDao;
 
     @Autowired
-    public MovieServiceImpl(MovieDao movieDao, UserValidator userValidator) {
-        this.movieDao = movieDao;
+    public RoomServiceImpl(UserValidator userValidator, RoomDao roomDao) {
         this.userValidator = userValidator;
+        this.roomDao = roomDao;
     }
 
-
     @Override
-    public BasicResponse createMovie(String title, String genre, int length, String token) {
+    public BasicCommandResponse createRoom(String name, int rows, int columns, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
             return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
-        movieDao.createMovie(new Movie(title, genre, length));
+        roomDao.createRoom(new Room(name, rows, columns));
 
         return ResponseFactory.successResponse();
     }
 
     @Override
-    public List<Movie> getAllMovies() {
-        return List.copyOf(movieDao.readAll());
+    public List<Room> getAllRooms() {
+        return List.copyOf(roomDao.readAll());
     }
 
     @Override
-    public BasicResponse updateMovie(String title, String genre, int length, String token) {
+    public BasicCommandResponse updateRoom(String name, int rows, int columns, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
             return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
-        movieDao.updateMovie(new Movie(title, genre, length));
+        roomDao.updateRoom(new Room(name, rows, columns));
 
         return ResponseFactory.successResponse();
     }
 
     @Override
-    public BasicResponse deleteMovie(String title, String token) {
+    public BasicCommandResponse deleteRoom(String name, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
             return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
-        movieDao.deleteMovie(title);
+        roomDao.deleteRoom(name);
+
         return ResponseFactory.successResponse();
     }
-
-
 }

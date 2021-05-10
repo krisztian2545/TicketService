@@ -10,7 +10,7 @@ public interface MovieDao {
 
     Collection<Movie> readAll();
 
-    void update(Movie movie);
+    void updateMovie(Movie movie);
 
     void deleteMovie(String title);
 }

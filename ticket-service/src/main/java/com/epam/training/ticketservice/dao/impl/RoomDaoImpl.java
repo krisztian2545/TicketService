@@ -6,12 +6,14 @@ import com.epam.training.ticketservice.dao.repository.entity.RoomEntity;
 import com.epam.training.ticketservice.domain.theatre.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Service
 public class RoomDaoImpl implements RoomDao {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(RoomDaoImpl.class);
@@ -47,7 +49,7 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public void update(Room room) {
+    public void updateRoom(Room room) {
         Optional<RoomEntity> roomEntity = roomRepository.findById(room.getName());
 
         roomEntity.ifPresent(entity -> {
