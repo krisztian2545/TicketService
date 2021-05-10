@@ -25,6 +25,11 @@ public class MovieCommandsHandler {
         return movieCommandsService.getAllMovies();
     }
 
+    @ShellMethod(value = "update movie <film címe> <műfaj> <vetítés hossza percben>", key = "update movie")
+    public String updateMovie(String title, String genre, int length) {
+        return movieCommandsService.updateMovie(title, genre, length);
+    }
+
     @ShellMethod(value = "delete movie <film címe>", key = "delete movie")
     public String deleteMovie(String title) {
         return movieCommandsService.deleteMovie(title);

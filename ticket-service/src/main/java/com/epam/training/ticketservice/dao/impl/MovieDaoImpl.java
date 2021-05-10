@@ -53,7 +53,13 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public void update(Movie movie) {
+        Optional<MovieEntity> movieEntity = movieRepository.findById(movie.getTitle());
 
+        movieEntity.ifPresent(entity -> {
+            entity.setGenre(movie.getGenre());
+            entity.setLength(movie.getLength());
+            movieRepository.save(entity);
+        });
     }
 
     @Override

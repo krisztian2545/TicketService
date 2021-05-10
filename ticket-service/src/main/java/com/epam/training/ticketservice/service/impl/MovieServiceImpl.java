@@ -43,6 +43,14 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public String updateMovie(String title, String genre, int length, String token) {
+        try {
+            userValidator.authorizeAdmin(token);
+        } catch (AccessDeniedException e) {
+            return "You are not privileged to use this command";
+        }
+
+        movieDao.update(new Movie(title, genre, length));
+
         return null;
     }
 

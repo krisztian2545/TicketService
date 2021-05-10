@@ -46,7 +46,7 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
 
     @Override
     public String updateMovie(String title, String genre, int length) {
-        return null;
+        return movieService.updateMovie(title, genre, length, client.getSessionToken());
     }
 
     @Override
