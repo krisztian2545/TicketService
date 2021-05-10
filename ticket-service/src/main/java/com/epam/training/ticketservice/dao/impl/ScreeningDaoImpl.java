@@ -11,6 +11,7 @@ import com.epam.training.ticketservice.dao.repository.entity.ScreeningId;
 import com.epam.training.ticketservice.domain.theatre.Movie;
 import com.epam.training.ticketservice.domain.theatre.Room;
 import com.epam.training.ticketservice.domain.theatre.Screening;
+import com.epam.training.ticketservice.domain.theatre.ScreeningInfo;
 import com.epam.training.ticketservice.exception.NoSuchMovieException;
 import com.epam.training.ticketservice.exception.NoSuchRoomException;
 import org.slf4j.Logger;
@@ -42,19 +43,19 @@ public class ScreeningDaoImpl implements ScreeningDao {
     }
 
     @Override
-    public void createScreening(Screening screening) throws NoSuchMovieException, NoSuchRoomException {
-        if (!movieRepository.existsById(screening.getMovie().getTitle())) {
+    public void createScreening(ScreeningInfo screening) throws NoSuchMovieException, NoSuchRoomException {
+        if (!movieRepository.existsById(screening.getMovieTitle())) {
             throw new NoSuchMovieException();
         }
 
-        if (!roomRepository.existsById(screening.getRoom().getName())) {
+        if (!roomRepository.existsById(screening.getRoomName())) {
             throw new NoSuchRoomException();
         }
 
         try {
             screeningRepository.save(new ScreeningEntity(
-                    screening.getMovie().getTitle(),
-                    screening.getRoom().getName(),
+                    screening.getMovieTitle(),
+                    screening.getRoomName(),
                     new Timestamp(screening.getStartDateAndTime().getTime())
             ));
         } catch (Exception e) {
@@ -87,15 +88,15 @@ public class ScreeningDaoImpl implements ScreeningDao {
     }
 
     @Override
-    public void updateScreening(Screening screening) {
-
+    public void updateScreening(ScreeningInfo screening) {
+        LOGGER.error("This feature is unavailable right now!");
     }
 
     @Override
-    public void deleteScreening(Screening screening) {
+    public void deleteScreening(ScreeningInfo screening) {
         Optional<ScreeningEntity> screeningEntity = screeningRepository.findById(new ScreeningId(
-                screening.getMovie().getTitle(),
-                screening.getRoom().getName(),
+                screening.getMovieTitle(),
+                screening.getRoomName(),
                 new Timestamp(screening.getStartDateAndTime().getTime())
         ));
 
