@@ -3,6 +3,7 @@ package com.epam.training.ticketservice.clientservice.cli.impl;
 import com.epam.training.ticketservice.clientservice.Client;
 import com.epam.training.ticketservice.clientservice.cli.AccountCommandsService;
 import com.epam.training.ticketservice.service.AccountService;
+import com.epam.training.ticketservice.service.response.BasicCommandResponse;
 import com.epam.training.ticketservice.service.response.SignInResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,25 +22,31 @@ public class AccountCommandsServiceImpl implements AccountCommandsService {
 
     @Override
     public String signIn(String username, String password) {
-        SignInResponse response = accountService.signInAsAdmin(username, password);
+        BasicCommandResponse response = accountService.signInAsAdmin(username, password);
 
         if (!response.isSuccessful()) {
-            return response.getErrorMessage();
+            return response.getMessage();
         }
 
-        client.setSessionToken(response.getToken());
+        client.setSessionToken(((SignInResponse) response).getToken());
         return "Successfully logged in.";
     }
 
     @Override
     public String signOut() {
-        String output = accountService.signOut();
+        BasicCommandResponse response = accountService.signOut();
+
+        if (!response.isSuccessful()) {
+            return response.getMessage();
+        }
+
         client.setSessionToken(null);
-        return output;
+        return "signed out successfully";
     }
 
     @Override
     public String describeAccount() {
-        return accountService.describeAccount();
+        BasicCommandResponse response = accountService.describeAccount();
+        return response.getMessage();
     }
 }

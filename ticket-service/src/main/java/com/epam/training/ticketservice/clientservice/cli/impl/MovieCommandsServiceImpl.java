@@ -4,6 +4,7 @@ import com.epam.training.ticketservice.clientservice.Client;
 import com.epam.training.ticketservice.clientservice.cli.MovieCommandsService;
 import com.epam.training.ticketservice.domain.theatre.Movie;
 import com.epam.training.ticketservice.service.MovieService;
+import com.epam.training.ticketservice.service.response.BasicCommandResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
 
     @Override
     public String createMovie(String title, String genre, int length) {
-        return movieService.createMovie(title, genre, length, client.getSessionToken());
+        return movieService.createMovie(title, genre, length, client.getSessionToken()).getMessage();
     }
 
     @Override
@@ -41,16 +42,16 @@ public class MovieCommandsServiceImpl implements MovieCommandsService {
                     m.getTitle(), m.getGenre(), m.getLength()));
         }
 
-        return output.toString(); // TODO
+        return output.toString();
     }
 
     @Override
     public String updateMovie(String title, String genre, int length) {
-        return movieService.updateMovie(title, genre, length, client.getSessionToken());
+        return movieService.updateMovie(title, genre, length, client.getSessionToken()).getMessage();
     }
 
     @Override
     public String deleteMovie(String title) {
-        return movieService.deleteMovie(title, client.getSessionToken());
+        return movieService.deleteMovie(title, client.getSessionToken()).getMessage();
     }
 }

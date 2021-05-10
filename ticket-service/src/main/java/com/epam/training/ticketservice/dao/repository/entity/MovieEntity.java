@@ -20,6 +20,15 @@ public class MovieEntity {
     @Column
     private int length;
 
+    public MovieEntity() {
+    }
+
+    public MovieEntity(String title, String genre, int length) {
+        this.title = title;
+        this.genre = genre;
+        this.length = length;
+    }
+
     public String getTitle() {
         return title;
     }

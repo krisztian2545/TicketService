@@ -1,11 +1,13 @@
 package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.domain.account.Account;
+import com.epam.training.ticketservice.domain.account.Privilege;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.AccountService;
 import com.epam.training.ticketservice.service.CurrentUser;
 import com.epam.training.ticketservice.service.UserValidator;
+import com.epam.training.ticketservice.service.response.BasicResponse;
 import com.epam.training.ticketservice.service.response.ResponseFactory;
 import com.epam.training.ticketservice.service.response.SignInResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,25 +42,29 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String signInAsUser(String username, String password) { // TODO
+    public BasicResponse signInAsUser(String username, String password) { // TODO
         return null;
     }
 
     @Override
-    public String signOut() {
+    public BasicResponse signOut() {
         specificUserValidatorImpl.clearSessionToken();
-        return null;
+        return ResponseFactory.successResponse();
     }
 
     @Override
-    public String describeAccount() {
+    public BasicResponse describeAccount() {
         try {
             specificUserValidatorImpl.checkIfUserAlreadyLoggedIn();
         } catch (AlreadyLoggedInException e) {
-            // TODO what if not privileged
-            return String.format("Signed in with privileged account '%s'", currentUser.getUsername());
+            switch (currentUser.getPrivilege()) {
+                case Admin:
+                    return ResponseFactory.successResponse(String.format("Signed in with privileged account '%s'", currentUser.getUsername()));
+                case User:
+                    return ResponseFactory.successResponse(String.format("Signed in with account '%s'", currentUser.getUsername()));
+            }
         }
-        return "You are not signed in";
+        return ResponseFactory.errorResponse("You are not signed in");
     }
 
 

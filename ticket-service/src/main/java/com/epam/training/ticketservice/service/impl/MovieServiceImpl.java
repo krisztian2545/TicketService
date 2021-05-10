@@ -5,6 +5,8 @@ import com.epam.training.ticketservice.domain.theatre.Movie;
 import com.epam.training.ticketservice.exception.AccessDeniedException;
 import com.epam.training.ticketservice.service.MovieService;
 import com.epam.training.ticketservice.service.UserValidator;
+import com.epam.training.ticketservice.service.response.BasicResponse;
+import com.epam.training.ticketservice.service.response.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +26,16 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public String createMovie(String title, String genre, int length, String token) {
+    public BasicResponse createMovie(String title, String genre, int length, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
-            return "You are not privileged to use this command";
+            return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
         movieDao.createMovie(new Movie(title, genre, length));
 
-        return null;
+        return ResponseFactory.successResponse();
     }
 
     @Override
@@ -42,28 +44,28 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public String updateMovie(String title, String genre, int length, String token) {
+    public BasicResponse updateMovie(String title, String genre, int length, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
-            return "You are not privileged to use this command";
+            return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
         movieDao.update(new Movie(title, genre, length));
 
-        return null;
+        return ResponseFactory.successResponse();
     }
 
     @Override
-    public String deleteMovie(String title, String token) {
+    public BasicResponse deleteMovie(String title, String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
-            return "You are not privileged to use this command";
+            return ResponseFactory.errorResponse("You are not privileged to use this command");
         }
 
         movieDao.deleteMovie(title);
-        return null;
+        return ResponseFactory.successResponse();
     }
 
 

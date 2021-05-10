@@ -1,14 +1,11 @@
 package com.epam.training.ticketservice.service.response;
 
-public class SignInResponse {
+public class SignInResponse extends BasicResponse {
     private final String token;
-    private final String errorMessage;
-    private final Boolean successful;
 
     public SignInResponse(String token, String errorMessage, Boolean successful) {
+        super(errorMessage, successful);
         this.token = token;
-        this.errorMessage = errorMessage;
-        this.successful = successful;
     }
 
     public String getToken() {
@@ -16,10 +13,6 @@ public class SignInResponse {
     }
 
     public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public Boolean isSuccessful() {
-        return successful;
+        return getMessage();
     }
 }

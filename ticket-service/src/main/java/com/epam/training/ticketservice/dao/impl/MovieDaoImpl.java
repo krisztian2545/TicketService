@@ -28,13 +28,12 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public void createMovie(Movie movie) {
-        MovieEntity movieEntity = new MovieEntity();
-        movieEntity.setTitle(movie.getTitle());
-        movieEntity.setGenre(movie.getGenre());
-        movieEntity.setLength(movie.getLength());
-
         try {
-            movieRepository.save(movieEntity);
+            movieRepository.save(new MovieEntity(
+                    movie.getTitle(),
+                    movie.getGenre(),
+                    movie.getLength()
+            ));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
