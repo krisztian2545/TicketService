@@ -38,7 +38,8 @@ public class ScreeningCommandsServiceImpl implements ScreeningCommandsService {
         }
 
         StringBuilder output = new StringBuilder();
-        for (Screening sc : screenings) {
+        for (int i = screenings.size()-1; i >= 0; i--) {
+            Screening sc = screenings.get(i);
             output.append(String.format("%s (%s, %d minutes), screened in room %s, at %s\n",
                     sc.getMovie().getTitle(), sc.getMovie().getGenre(), sc.getMovie().getLength(),
                     sc.getRoom().getName(),

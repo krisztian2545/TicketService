@@ -9,7 +9,6 @@ import org.springframework.shell.standard.ShellMethod;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @ShellComponent
 public class ScreeningCommandsHandler {
@@ -28,8 +27,6 @@ public class ScreeningCommandsHandler {
             "YYYY-MM-dd HH:mm formátumban>", key = "create screening")
     public String createScreening(String movieTitle, String roomName, String startDateAndTime) {
         try {
-            LOGGER.error(new SimpleDateFormat(DATE_FORMAT).parse(startDateAndTime).toString() + DATE_FORMAT);
-
             return screeningCommandsService.createScreening(movieTitle, roomName,
                     new SimpleDateFormat(DATE_FORMAT).parse(startDateAndTime));
         } catch (ParseException e) {
