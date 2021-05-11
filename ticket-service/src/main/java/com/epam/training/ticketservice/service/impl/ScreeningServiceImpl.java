@@ -29,7 +29,11 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public BasicCommandResponse createScreening(String movieTitle, String roomName, Date startDateAndTime, String token) {
+    public BasicCommandResponse createScreening(
+            String movieTitle,
+            String roomName,
+            Date startDateAndTime,
+            String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
@@ -38,13 +42,14 @@ public class ScreeningServiceImpl implements ScreeningService {
 
         for (Screening sc : getAllScreenings()) {
             long timeDiff = (startDateAndTime.getTime() - sc.getStartDateAndTime().getTime()) / 60000;
-            if (roomName.equals(sc.getRoom().getName()) &&
-                    timeDiff >= 0 &&
-                    timeDiff < sc.getMovie().getLength() + 10) {
+            if (roomName.equals(sc.getRoom().getName())
+                    && timeDiff >= 0
+                    && timeDiff < sc.getMovie().getLength() + 10) {
                 if (timeDiff < sc.getMovie().getLength()) {
                     return ResponseFactory.errorResponse("There is an overlapping screening");
                 }
-                return ResponseFactory.errorResponse("This would start in the break period after another screening in this room");
+                return ResponseFactory
+                        .errorResponse("This would start in the break period after another screening in this room");
             }
         }
 
@@ -65,7 +70,11 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public BasicCommandResponse updateScreening(String filmTitle, String roomName, Date startDateAndTime, String token) {
+    public BasicCommandResponse updateScreening(
+            String filmTitle,
+            String roomName,
+            Date startDateAndTime,
+            String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {
@@ -76,7 +85,11 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public BasicCommandResponse deleteScreening(String movieTitle, String roomName, Date startDateAndTime, String token) {
+    public BasicCommandResponse deleteScreening(
+            String movieTitle,
+            String roomName,
+            Date startDateAndTime,
+            String token) {
         try {
             userValidator.authorizeAdmin(token);
         } catch (AccessDeniedException e) {

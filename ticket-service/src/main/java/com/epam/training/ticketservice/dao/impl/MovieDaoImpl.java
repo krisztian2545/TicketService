@@ -17,7 +17,7 @@ import java.util.stream.StreamSupport;
 @Service
 public class MovieDaoImpl implements MovieDao {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(MovieDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieDaoImpl.class);
 
     private MovieRepository movieRepository;
 

@@ -38,12 +38,12 @@ public class ScreeningCommandsServiceImpl implements ScreeningCommandsService {
         }
 
         StringBuilder output = new StringBuilder();
-        for (int i = screenings.size()-1; i >= 0; i--) {
+        for (int i = screenings.size() - 1; i >= 0; i--) {
             Screening sc = screenings.get(i);
             output.append(String.format("%s (%s, %d minutes), screened in room %s, at %s\n",
                     sc.getMovie().getTitle(), sc.getMovie().getGenre(), sc.getMovie().getLength(),
                     sc.getRoom().getName(),
-                    (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(sc.getStartDateAndTime()) ));
+                    (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(sc.getStartDateAndTime())));
         }
 
         return output.toString();

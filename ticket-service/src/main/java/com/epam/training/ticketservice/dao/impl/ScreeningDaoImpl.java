@@ -29,14 +29,15 @@ import java.util.stream.StreamSupport;
 @Service
 public class ScreeningDaoImpl implements ScreeningDao {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ScreeningDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScreeningDaoImpl.class);
 
     private ScreeningRepository screeningRepository;
     private MovieRepository movieRepository;
     private RoomRepository roomRepository;
 
     @Autowired
-    public ScreeningDaoImpl(ScreeningRepository screeningRepository, MovieRepository movieRepository, RoomRepository roomRepository) {
+    public ScreeningDaoImpl(ScreeningRepository screeningRepository, MovieRepository movieRepository,
+                            RoomRepository roomRepository) {
         this.screeningRepository = screeningRepository;
         this.movieRepository = movieRepository;
         this.roomRepository = roomRepository;
@@ -67,23 +68,23 @@ public class ScreeningDaoImpl implements ScreeningDao {
     public Collection<Screening> readAll() {
         return StreamSupport.stream(screeningRepository.findAll().spliterator(), false)
                 .map(entity -> {
-                        MovieEntity movieEntity = movieRepository.findById(entity.getFilmTitle()).get();
-                        RoomEntity roomEntity = roomRepository.findById(entity.getRoomName()).get();
+                    MovieEntity movieEntity = movieRepository.findById(entity.getFilmTitle()).get();
+                    RoomEntity roomEntity = roomRepository.findById(entity.getRoomName()).get();
 
-                        return new Screening(
-                                new Movie(
-                                        movieEntity.getTitle(),
-                                        movieEntity.getGenre(),
-                                        movieEntity.getLength()
-                                ),
-                                new Room(
-                                        roomEntity.getName(),
-                                        roomEntity.getRows(),
-                                        roomEntity.getColumns()
-                                ),
-                                new Date(entity.getStartDateAndTime().getTime())
-                        );
-                        }
+                    return new Screening(
+                            new Movie(
+                                    movieEntity.getTitle(),
+                                    movieEntity.getGenre(),
+                                    movieEntity.getLength()
+                            ),
+                            new Room(
+                                    roomEntity.getName(),
+                                    roomEntity.getRows(),
+                                    roomEntity.getColumns()
+                            ),
+                            new Date(entity.getStartDateAndTime().getTime())
+                    );
+                }
                 ).collect(Collectors.toList());
     }
 

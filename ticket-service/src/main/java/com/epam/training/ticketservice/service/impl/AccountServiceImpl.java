@@ -1,7 +1,5 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.domain.account.Account;
-import com.epam.training.ticketservice.domain.account.Privilege;
 import com.epam.training.ticketservice.exception.AlreadyLoggedInException;
 import com.epam.training.ticketservice.exception.UnsuccessfulAuthenticationException;
 import com.epam.training.ticketservice.service.AccountService;
@@ -59,13 +57,15 @@ public class AccountServiceImpl implements AccountService {
         } catch (AlreadyLoggedInException e) {
             switch (currentUser.getPrivilege()) {
                 case Admin:
-                    return ResponseFactory.successResponse(String.format("Signed in with privileged account '%s'", currentUser.getUsername()));
+                    return ResponseFactory.successResponse(String.format("Signed in with privileged account '%s'",
+                            currentUser.getUsername()));
                 case User:
-                    return ResponseFactory.successResponse(String.format("Signed in with account '%s'", currentUser.getUsername()));
+                    return ResponseFactory.successResponse(String.format("Signed in with account '%s'",
+                            currentUser.getUsername()));
+                default:
             }
         }
         return ResponseFactory.errorResponse("You are not signed in");
     }
-
 
 }

@@ -21,8 +21,12 @@ public class ScreeningId implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ScreeningId that = (ScreeningId) o;
         return filmTitle.equals(that.filmTitle) && roomName.equals(that.roomName)
                 && startDateAndTime.equals(that.startDateAndTime);

@@ -13,8 +13,7 @@ import java.text.SimpleDateFormat;
 @ShellComponent
 public class ScreeningCommandsHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ScreeningCommandsHandler.class);
-    private final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
     private ScreeningCommandsService screeningCommandsService;
 
@@ -23,8 +22,8 @@ public class ScreeningCommandsHandler {
         this.screeningCommandsService = screeningCommandsService;
     }
 
-    @ShellMethod(value = "create screening <film címe> <terem neve> <vetítés kezdetének dátuma és ideje, " +
-            "YYYY-MM-dd HH:mm formátumban>", key = "create screening")
+    @ShellMethod(value = "create screening <film címe> <terem neve> <vetítés kezdetének dátuma és ideje, "
+            + "YYYY-MM-dd HH:mm formátumban>", key = "create screening")
     public String createScreening(String movieTitle, String roomName, String startDateAndTime) {
         try {
             return screeningCommandsService.createScreening(movieTitle, roomName,
@@ -39,8 +38,8 @@ public class ScreeningCommandsHandler {
         return screeningCommandsService.getAllScreenings();
     }
 
-    @ShellMethod(value = "delete screening <film címe> <terem neve> <vetítés kezdetének dátuma és ideje, " +
-            "YYYY-MM-dd HH:mm formátumban>", key = "delete screening")
+    @ShellMethod(value = "delete screening <film címe> <terem neve> <vetítés kezdetének dátuma és ideje, "
+            + "YYYY-MM-dd HH:mm formátumban>", key = "delete screening")
     public String deleteScreening(String movieTitle, String roomName, String startDateAndTime) {
         try {
             return screeningCommandsService.deleteScreening(movieTitle, roomName,

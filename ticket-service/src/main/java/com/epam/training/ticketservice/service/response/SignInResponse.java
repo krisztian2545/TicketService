@@ -12,7 +12,4 @@ public class SignInResponse extends BasicResponse {
         return token;
     }
 
-    public String getErrorMessage() {
-        return getMessage();
-    }
 }

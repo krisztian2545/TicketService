@@ -16,7 +16,7 @@ import java.util.stream.StreamSupport;
 @Service
 public class RoomDaoImpl implements RoomDao {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RoomDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoomDaoImpl.class);
 
     private RoomRepository roomRepository;
 

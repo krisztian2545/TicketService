@@ -3,6 +3,7 @@ package com.epam.training.ticketservice.service.impl;
 import com.epam.training.ticketservice.domain.account.Account;
 import com.epam.training.ticketservice.domain.account.Privilege;
 import com.epam.training.ticketservice.domain.account.impl.AdminImpl;
+import com.epam.training.ticketservice.domain.account.impl.User;
 import com.epam.training.ticketservice.service.CurrentUser;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +16,12 @@ public class CurrentUserImpl implements CurrentUser {
     public void setCurrentUser(String username, Privilege privilege) {
         switch (privilege) {
             case Admin:
-                currentUser = new AdminImpl(username, privilege);
+                currentUser = new AdminImpl(username);
                 break;
             case User:
+                currentUser = new User(username);
+                break;
+            default:
         }
     }
 
