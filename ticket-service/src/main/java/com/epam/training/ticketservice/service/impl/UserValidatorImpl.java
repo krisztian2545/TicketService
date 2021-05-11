@@ -10,6 +10,10 @@ import com.epam.training.ticketservice.service.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Random;
+
 @Component
 public class UserValidatorImpl implements UserValidator {
 
@@ -58,6 +62,8 @@ public class UserValidatorImpl implements UserValidator {
     }
 
     private static String generateToken() {
-        return "generate token here";
+        byte[] array = new byte[7];
+        new Random().nextBytes(array);
+        return new String(array, StandardCharsets.UTF_8);
     }
 }
