@@ -43,6 +43,14 @@ class UserValidatorImplTest {
     }
 
     @Test
+    void testAuthorizeAdminShouldDoNothingWhenTokenIsGiven() throws AccessDeniedException {
+        given(currentUser.getPrivilege()).willReturn(Privilege.Admin);
+        String token = successfullyAuthenticateAdmin();
+
+        underTest.authorizeAdmin(token);
+    }
+
+    @Test
     void testClearSessionTokenShouldLogTheUserOut() throws AlreadyLoggedInException {
         given(currentUser.getPrivilege()).willReturn(Privilege.Admin);
         successfullyAuthenticateAdmin();
@@ -58,11 +66,12 @@ class UserValidatorImplTest {
         assertThrows(AlreadyLoggedInException.class, () -> underTest.checkIfUserAlreadyLoggedIn());
     }
 
-    private void successfullyAuthenticateAdmin() {
+    private String successfullyAuthenticateAdmin() {
         try {
-            underTest.authenticateAdmin("admin", "admin");
+            return underTest.authenticateAdmin("admin", "admin");
         } catch (UnsuccessfulAuthenticationException | AlreadyLoggedInException e) {
             e.printStackTrace();
+            return null;
         }
     }
 

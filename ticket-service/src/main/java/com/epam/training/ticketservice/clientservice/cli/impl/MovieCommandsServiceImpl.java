@@ -4,12 +4,10 @@ import com.epam.training.ticketservice.clientservice.Client;
 import com.epam.training.ticketservice.clientservice.cli.MovieCommandsService;
 import com.epam.training.ticketservice.domain.theatre.Movie;
 import com.epam.training.ticketservice.service.MovieService;
-import com.epam.training.ticketservice.service.response.BasicCommandResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MovieCommandsServiceImpl implements MovieCommandsService {
