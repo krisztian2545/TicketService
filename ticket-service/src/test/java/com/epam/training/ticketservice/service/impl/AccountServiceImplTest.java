@@ -37,7 +37,10 @@ class AccountServiceImplTest {
     }
 
     @Test
-    void signOut() {
+    void testSignOutReturnsSuccessfulBasicCommandResponseWhenRunsSuccessfully() {
+        BasicCommandResponse result = underTest.signOut();
+
+        assertTrue(result.isSuccessful());
     }
 
     @Test

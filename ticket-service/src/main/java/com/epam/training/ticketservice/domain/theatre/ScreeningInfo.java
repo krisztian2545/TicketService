@@ -36,7 +36,9 @@ public class ScreeningInfo {
             return false;
         }
         ScreeningInfo that = (ScreeningInfo) o;
-        return movieTitle.equals(that.movieTitle) && roomName.equals(that.roomName) && startDateAndTime.equals(that.startDateAndTime);
+        return movieTitle.equals(that.movieTitle)
+                && roomName.equals(that.roomName)
+                && startDateAndTime.equals(that.startDateAndTime);
     }
 
     @Override
